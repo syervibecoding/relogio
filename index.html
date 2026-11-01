@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: transparent; --fg: #ebebea; --muted: #9b9b9b; --accent: #d9a441; }
-  @media (prefers-color-scheme: light) { :root { --fg: #37352f; --muted: #787774; --accent: #b7791f; } }
+  :root { --bg: #191919; --fg: #ebebea; --muted: #9b9b9b; --accent: #d9a441; }
+  :root.claro { --bg: #ffffff; --fg: #37352f; --muted: #787774; --accent: #b7791f; }
   html, body { margin: 0; height: 100%; background: var(--bg); }
   body { display: flex; align-items: center; justify-content: flex-end; font-family: Inter, system-ui, sans-serif; padding: 0 8px; box-sizing: border-box; }
   .wrap { text-align: right; line-height: 1.1; }
@@ -24,6 +24,7 @@
   <div class="date"><span id="d"></span> · <b>Recife</b></div>
 </div>
 <script>
+  if (new URLSearchParams(location.search).has('claro')) document.documentElement.classList.add('claro');
   const tz = 'America/Recife';
   const fHM = new Intl.DateTimeFormat('pt-BR', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false });
   const fS  = new Intl.DateTimeFormat('pt-BR', { timeZone: tz, second: '2-digit' });
