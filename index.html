@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relógio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: transparent; --fg: #ebebea; --muted: #9b9b9b; --accent: #d9a441; }
+  @media (prefers-color-scheme: light) { :root { --fg: #37352f; --muted: #787774; --accent: #b7791f; } }
+  html, body { margin: 0; height: 100%; background: var(--bg); }
+  body { display: flex; align-items: center; justify-content: flex-end; font-family: Inter, system-ui, sans-serif; padding: 0 8px; box-sizing: border-box; }
+  .wrap { text-align: right; line-height: 1.1; }
+  .time { font-size: 44px; font-weight: 300; color: var(--fg); letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .time .sec { font-size: 20px; color: var(--muted); margin-left: 4px; }
+  .date { margin-top: 6px; font-size: 13px; font-weight: 500; color: var(--muted); }
+  .date b { color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="time"><span id="hm">--:--</span><span class="sec" id="s">--</span></div>
+  <div class="date"><span id="d"></span> · <b>Recife</b></div>
+</div>
+<script>
+  const tz = 'America/Recife';
+  const fHM = new Intl.DateTimeFormat('pt-BR', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false });
+  const fS  = new Intl.DateTimeFormat('pt-BR', { timeZone: tz, second: '2-digit' });
+  const fD  = new Intl.DateTimeFormat('pt-BR', { timeZone: tz, weekday: 'long', day: 'numeric', month: 'long' });
+  function tick() {
+    const n = new Date();
+    document.getElementById('hm').textContent = fHM.format(n);
+    document.getElementById('s').textContent = fS.format(n).padStart(2, '0');
+    const t = fD.format(n); document.getElementById('d').textContent = t.charAt(0).toUpperCase() + t.slice(1);
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
